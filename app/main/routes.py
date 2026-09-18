@@ -44,24 +44,29 @@ def scan():
         file.save(image_path)
 
         # Analyze using saved file path
-        agent = CropAgent()
+        try:
+            agent = CropAgent()
 
-        result = agent.analyze_crop(
-            crop,
-            image_path
-        )
+            result = agent.analyze_crop(
+                crop,
+                image_path
+            )
 
-        print(result)
+            print("ANALYSIS RESULT:", result)
 
-        image_url = f"uploads/{filename}"
+            image_url = f"uploads/{filename}"
 
-        ai_analysis = result["ai_Analysis"]
+            ai_analysis = result["ai_Analysis"]
 
-        return render_template(
-            "main/result.html",
-            image_url=image_url,
-            crop=result["crop"],
-            ai_analysis=ai_analysis
-        )
+            return render_template(
+                "main/result.html",
+                image_url=image_url,
+                crop=result["crop"],
+                ai_analysis=ai_analysis
+            )
+
+        except Exception as e:
+            print("SCAN ERROR:", repr(e))
+            return f"<h1>Scan Error</h1><pre>{e}</pre>", 500
 
     return render_template("main/scan.html")
