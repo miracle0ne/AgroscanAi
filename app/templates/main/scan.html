@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="scan-page py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <p class="hero-label">
+                AGROSCAN AI
+            </p>
+
+            <h1 class="fw-bold">
+                Scan Your Plant
+            </h1>
+
+            <p>
+                Upload a clear photo of a plant leaf
+                to get preliminary disease information.
+            </p>
+
+        </div>
+
+
+        <div class="scan-upload-card">
+
+            <div class="upload-icon">
+                📷
+            </div>
+
+            <h3>
+                Upload Plant Photo
+            </h3>
+
+            <p>
+                Choose a clear image of the plant leaf
+                you want to analyze.
+            </p>
+
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                <!-- PLANT IMAGE -->
+
+                <input
+                    type="file"
+                    id="plantImage"
+                    name="plant_image"
+                    class="form-control"
+                    accept="image/*"
+                    required
+                >
+
+
+                <!-- IMAGE PREVIEW -->
+
+                <div
+                    id="imagePreview"
+                    class="image-preview mt-4">
+                </div>
+
+
+                <!-- CROP SELECT -->
+
+                <div class="mt-4 text-start">
+
+                    <label
+                        for="crop"
+                        class="form-label fw-bold">
+
+                        Select Crop
+
+                    </label>
+
+                    <select
+                        id="crop"
+                        name="crop"
+                        class="form-select"
+                        required>
+
+                        <option
+                            value=""
+                            selected
+                            disabled>
+
+                            Choose a crop
+
+                        </option>
+
+                        <option value="Maize">
+                            🌽 Maize
+                        </option>
+
+                        <option value="Tomato">
+                            🍅 Tomato
+                        </option>
+
+                        <option value="Onion">
+                            🧅 Onion
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ANALYZE BUTTON -->
+
+                <button
+                    type="submit"
+                    class="btn btn-neon mt-4">
+
+                    Analyze Plant
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+    const plantImage =
+        document.getElementById("plantImage");
+
+    const imagePreview =
+        document.getElementById("imagePreview");
+
+
+    plantImage.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+
+        if (!file) {
+
+            imagePreview.style.display = "none";
+
+            imagePreview.innerHTML = "";
+
+            return;
+
+        }
+
+
+        const imageUrl =
+            URL.createObjectURL(file);
+
+
+        imagePreview.innerHTML = `
+            <img
+                src="${imageUrl}"
+                alt="Selected plant image">
+        `;
+
+
+        imagePreview.style.display = "block";
+
+    });
+
+</script>
+
+{% endblock %}

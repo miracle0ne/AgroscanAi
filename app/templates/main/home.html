@@ -1,0 +1,285 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- HERO SLIDER -->
+<section class="hero-slider">
+
+    <div
+        id="plantSlider"
+        class="carousel slide"
+        data-bs-ride="carousel"
+    >
+
+        <div class="carousel-inner">
+
+            <!-- SLIDE ONE -->
+            <div class="carousel-item active">
+
+                <img
+                    src="{{ url_for('static', filename='images/scan.jpeg') }}"
+                    alt="Farmer scanning a maize plant"
+                >
+
+                <div class="slider-overlay"></div>
+
+                <div class="slider-content">
+
+                    <span class="text-success">AGROSCAN AI</span>
+
+                    <h1>
+                        Scan Your Maize Plant
+                    </h1>
+
+                    <p>
+                        Take a photo of your maize leaf
+                        and get early information about
+                        possible plant diseases.
+                    </p>
+
+                    <a href="/scan" class="btn btn-neon">
+                        Scan Plant
+                    </a>
+
+                </div>
+
+            </div>
+          <div class="carousel-item">
+
+    <img
+        src="{{ url_for('static', filename='images/scanunion.jpeg') }}"
+        alt="Farmer scanning an onion plant"
+    >
+
+    <div class="slider-overlay"></div>
+
+    <div class="slider-content">
+
+        <span>AGROSCAN AI</span>
+
+        <h1>
+            Check Your Onion Plant
+        </h1>
+
+        <p>
+            Take a photo of your onion leaf
+            and get early information about
+            possible plant diseases.
+        </p>
+
+        <a href="/scan" class="btn btn-neon">
+            Scan Plant
+        </a>
+
+    </div>
+
+          </div>
+          <div class="carousel-item">
+
+    <img
+        src="{{ url_for('static', filename='images/to2.jpeg') }}"
+        alt="Farmer scanning a tomato plant"
+    >
+
+    <div class="slider-overlay"></div>
+
+    <div class="slider-content">
+
+        <span>AGROSCAN AI</span>
+
+        <h1>
+            Check Your Tomato Plant
+        </h1>
+
+        <p>
+            Take a photo of your tomato leaf
+            and get early information about
+            possible plant diseases.
+        </p>
+
+        <a href="/scan" class="btn btn-neon">
+            Scan Plant
+        </a>
+
+    </div>
+
+          </div>
+
+        </div>
+
+    </div>
+  
+
+
+    <!-- SLIDER PROGRESS -->
+    <div class="slider-progress">
+
+        <div class="progress-track">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="progress-label">
+            <span>01</span>
+            <span>03</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MAIN SCAN CARD -->
+<section class="scan-card-section py-5">
+
+    <div class="container">
+
+        <div class="scan-card">
+
+            <div class="row align-items-center g-0">
+
+                <!-- IMAGE -->
+                <div class="col-lg-6">
+
+                    <img
+                        src="{{ url_for('static', filename='images/scan.jpeg') }}"
+                        class="scan-image"
+                        alt="Farmer scanning a plant leaf"
+                    >
+
+                </div>
+
+
+                <!-- CONTENT -->
+                <div class="col-lg-6">
+
+                    <div class="scan-content">
+
+                        <p class="hero-label">
+                            SMART PLANT SCANNING
+                        </p>
+
+                        <h2 class="fw-bold">
+                            Scan Your Plant
+                            <span class="neon-text">
+                                With AI
+                            </span>
+                        </h2>
+
+                        <p>
+                            Take a clear photo of a plant leaf
+                            and get preliminary information about
+                            possible plant diseases.
+                        </p>
+
+                        <a href="/scan" class="btn btn-neon">
+                            Scan Now
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+   
+</section>
+
+
+<!-- FEATURES SECTION -->
+<section class="features-section py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-4">
+
+            <h2 class="fw-bold">
+                How AgroScan AI Helps
+            </h2>
+
+            <p>
+                Simple tools for better plant care.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- FEATURE ONE -->
+            <div class="col-md-4">
+
+                <div class="feature-card h-100">
+
+                    <div class="feature-icon">
+                        📷
+                    </div>
+
+                    <h4>
+                        Upload a Photo
+                    </h4>
+
+                    <p>
+                        Take or upload a clear photo
+                        of your plant leaf.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURE TWO -->
+            <div class="col-md-4">
+
+                <div class="feature-card h-100">
+
+                    <div class="feature-icon">
+                        🤖
+                    </div>
+
+                    <h4>
+                        AI Analysis
+                    </h4>
+
+                    <p>
+                        Receive possible information
+                        about the plant disease.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURE THREE -->
+            <div class="col-md-4">
+
+                <div class="feature-card h-100">
+
+                    <div class="feature-icon">
+                        🌱
+                    </div>
+
+                    <h4>
+                        Next Steps
+                    </h4>
+
+                    <p>
+                        Get basic guidance on what
+                        to do next.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

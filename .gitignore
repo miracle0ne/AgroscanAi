@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+image.txt
+image_data.txt
+vision_request.json
+app/static/uploads/
+app/static/uploads/
