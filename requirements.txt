@@ -12,3 +12,4 @@ psycopg2-binary==2.9.12
 resend==2.37.0
 python-slugify==8.0.4
 email-validator==2.3.0
+Pillow==11.3.0
