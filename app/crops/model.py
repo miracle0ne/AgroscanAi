@@ -36,17 +36,14 @@ class Agromodel:
   
       return text.strip()
 
-    def analyze_image(self, image_path):
+    def analyze_image(self, image):
 
         if not self.api_key:
             return {
                 "error": "cencori api not configured"
             }
-
-        with open(image_path, "rb") as image_file:
-            image_base64 = base64.b64encode(
-                image_file.read()
-            ).decode("utf-8")
+        image_base64=base64.b64encode(image.read()).decode("utf-8")
+        
 
         payload = {
             "model": "gemini-2.5-flash",
@@ -100,6 +97,7 @@ class Agromodel:
             analysis_text=self.clean_json_text(analysis_text)
 
             analysis = json.loads(analysis_text)
+            analysis = self.normalize_analysis(analysis)
 
         except json.JSONDecodeError:
 
