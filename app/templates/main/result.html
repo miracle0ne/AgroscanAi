@@ -6,414 +6,409 @@
 
     {% if ai_analysis.error %}
 
-        <!-- AI ERROR -->
+    <!-- AI ERROR -->
+    <div class="container">
 
-        <div class="container">
+        <div class="text-center mb-5">
+            <p class="hero-label">AGROSCAN AI</p>
 
-            <div class="text-center mb-5">
+            <h1 class="fw-bold">
+                Scan Result
+            </h1>
 
-                <p class="hero-label">
-                    AGROSCAN AI
-                </p>
+            <p>
+                Here is the result from your plant scan.
+            </p>
+        </div>
 
-                <h1 class="fw-bold">
-                    Scan Result
-                </h1>
+        <div class="analysis-card">
 
-                <p>
-                    Here is the result from your plant scan.
-                </p>
+            <div class="analysis-card-header">
+
+                <div class="analysis-icon">
+                    ⚠️
+                </div>
+
+                <div>
+                    <p>AI ANALYSIS</p>
+
+                    <h3>
+                        Analysis Unavailable
+                    </h3>
+                </div>
 
             </div>
 
-            <div class="analysis-card">
+            <div class="analysis-content">
 
-                <div class="analysis-card-header">
+                <p>
+                    We could not complete the AI analysis
+                    at this time.
+                </p>
 
-                    <div class="analysis-icon">
-                        ⚠️
-                    </div>
+                <p>
+                    Please try scanning the plant again later.
+                </p>
 
-                    <div>
-                        <p>
-                            AI ANALYSIS
-                        </p>
-
-                        <h3>
-                            Analysis Unavailable
-                        </h3>
-                    </div>
-
-                </div>
-
-                <div class="analysis-content">
-
-                    <p>
-                        We could not complete the AI analysis
-                        at this time.
-                    </p>
-
-                    <p>
-                        Please try scanning the plant again later.
-                    </p>
-
-                    <a
-                        href="{{ url_for('main.scan') }}"
-                        class="btn btn-neon"
-                    >
-                        Try Again
-                    </a>
-
-                </div>
+                <a
+                    href="{{ url_for('main.scan') }}"
+                    class="btn btn-neon"
+                >
+                    Try Again
+                </a>
 
             </div>
 
         </div>
 
+    </div>
 
     {% else %}
 
+    <!-- SUCCESSFUL RESULT -->
 
-        <!-- SUCCESSFUL RESULT -->
+    <div class="container">
 
-        <div class="container">
+        <!-- HEADER -->
+        <div class="text-center mb-5">
 
-            <!-- HEADER -->
+            <p class="hero-label">
+                AGROSCAN AI
+            </p>
 
-            <div class="text-center mb-5">
+            <h1 class="fw-bold">
+                Scan Result
+            </h1>
 
-                <p class="hero-label">
-                    AGROSCAN AI
+            <p>
+                Here is the AI analysis from your plant scan.
+            </p>
+
+        </div>
+
+
+        <!-- IMAGE + CROP CARD -->
+
+        <div class="result-main-card mb-4">
+
+            <div class="result-image-wrapper">
+
+                <img
+                    src="{{ image_url }}"
+                    alt="Scanned plant"
+                    class="result-image"
+                >
+
+            </div>
+
+
+            <div class="result-main-content">
+
+                <span class="result-status">
+                    ✓ AI ANALYZED
+                </span>
+
+                <p class="result-label">
+                    DETECTED CROP
                 </p>
 
-                <h1 class="fw-bold">
-                    Scan Result
-                </h1>
+                <h2>
+                    🌱 {{ crop }}
+                </h2>
 
-                <p>
-                    Here is the AI analysis from your plant scan.
+                <p class="result-intro">
+                    AgroScan AI analyzed the uploaded plant image
+                    using artificial intelligence.
                 </p>
 
-            </div>
-
-
-            <!-- IMAGE + CROP CARD -->
-
-            <div class="result-main-card mb-4">
-
-                <div class="result-image-wrapper">
-
-                    <img
-                        src="{{ image_url }}"
-                        alt="Scanned plant"
-                        class="result-image"
-                    >
-
-                </div>
-
-
-                <div class="result-main-content">
-
-                    <span class="result-status">
-                        ✓ AI ANALYZED
-                    </span>
-
-                    <p class="result-label">
-                        DETECTED CROP
-                    </p>
-
-                    <h2>
-                        🌱 {{ crop }}
-                    </h2>
-
-                    <p class="result-intro">
-                        AgroScan AI analyzed the uploaded plant image
-                        using artificial intelligence.
-                    </p>
-
-                    <a
-                        href="{{ url_for('main.scan') }}"
-                        class="btn btn-neon"
-                    >
-                        Scan Another Plant
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- AI ANALYSIS CARD -->
-
-            <div class="analysis-card mb-4">
-
-                <div class="analysis-card-header">
-
-                    <div class="analysis-icon">
-                        🤖
-                    </div>
-
-                    <div>
-
-                        <p>
-                            AI ANALYSIS
-                        </p>
-
-                        <h3>
-                            Plant Analysis
-                        </h3>
-
-                    </div>
-
-                </div>
-
-
-                <div class="analysis-content">
-
-                    {{ ai_analysis.analysis.crop }}
-
-                </div>
-
-            </div>
-
-
-            <!-- DISEASE + SEVERITY -->
-
-            <div class="row g-4 mb-4">
-
-                <div class="col-md-6">
-
-                    <div class="info-card">
-
-                        <div class="info-icon">
-                            🦠
-                        </div>
-
-                        <div>
-
-                            <span>
-                                POSSIBLE DISEASE
-                            </span>
-
-                            <strong>
-                                {{ ai_analysis.analysis.possible_disease }}
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="col-md-6">
-
-                    <div class="info-card">
-
-                        <div class="info-icon">
-                            ⚠️
-                        </div>
-
-                        <div>
-
-                            <span>
-                                SEVERITY
-                            </span>
-
-                            <strong>
-                                {{ ai_analysis.analysis.severity }}
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- VISIBLE SYMPTOMS -->
-
-            <div class="analysis-card mb-4">
-
-                <div class="analysis-card-header">
-
-                    <div class="analysis-icon">
-                        🔎
-                    </div>
-
-                    <div>
-
-                        <p>
-                            VISIBLE SYMPTOMS
-                        </p>
-
-                        <h3>
-                            Symptoms Detected
-                        </h3>
-
-                    </div>
-
-                </div>
-
-
-                <div class="analysis-content">
-
-                    {% if ai_analysis.analysis.symptoms %}
-
-                        <ul>
-
-                            {% for symptom in ai_analysis.analysis.symptoms %}
-
-                                <li>
-                                    {{ symptom }}
-                                </li>
-
-                            {% endfor %}
-
-                        </ul>
-
-                    {% else %}
-
-                        <p>
-                            No clear symptoms were visible
-                            in the uploaded image.
-                        </p>
-
-                    {% endif %}
-
-                </div>
-
-            </div>
-
-
-            <!-- FARMER RECOMMENDATIONS -->
-
-            <div class="analysis-card mb-4">
-
-                <div class="analysis-card-header">
-
-                    <div class="analysis-icon">
-                        💡
-                    </div>
-
-                    <div>
-
-                        <p>
-                            FARMER GUIDANCE
-                        </p>
-
-                        <h3>
-                            Recommendations
-                        </h3>
-
-                    </div>
-
-                </div>
-
-
-                <div class="analysis-content">
-
-                    {% if ai_analysis.analysis.recommendations %}
-
-                        <ul>
-
-                            {% for recommendation
-                                in ai_analysis.analysis.recommendations %}
-
-                                <li>
-                                    {{ recommendation }}
-                                </li>
-
-                            {% endfor %}
-
-                        </ul>
-
-                    {% else %}
-
-                        <p>
-                            No recommendations were provided.
-                        </p>
-
-                    {% endif %}
-
-                </div>
-
-            </div>
-
-
-            <!-- ANALYSIS INFORMATION -->
-
-            <div class="row g-4 mb-4">
-
-                <div class="col-md-6">
-
-                    <div class="info-card">
-
-                        <div class="info-icon">
-                            🤖
-                        </div>
-
-                        <div>
-
-                            <span>
-                                MODEL
-                            </span>
-
-                            <strong>
-                                {{ ai_analysis.model }}
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="col-md-6">
-
-                    <div class="info-card">
-
-                        <div class="info-icon">
-                            ☁️
-                        </div>
-
-                        <div>
-
-                            <span>
-                                PROVIDER
-                            </span>
-
-                            <strong>
-                                {{ ai_analysis.provider }}
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- DISCLAIMER -->
-
-            <div class="result-disclaimer">
-
-                <strong>
-                    Important:
-                </strong>
-
-                This AI result is preliminary and for informational
-                purposes only. Confirm the diagnosis with an
-                agricultural expert before taking treatment action.
+                <a
+                    href="{{ url_for('main.scan') }}"
+                    class="btn btn-neon"
+                >
+                    Scan Another Plant
+                </a>
 
             </div>
 
         </div>
+
+
+        <!-- AI ANALYSIS CARD -->
+
+        <div class="analysis-card mb-4">
+
+            <div class="analysis-card-header">
+
+                <div class="analysis-icon">
+                    🤖
+                </div>
+
+                <div>
+                    <p>AI ANALYSIS</p>
+
+                    <h3>
+                        Plant Analysis
+                    </h3>
+                </div>
+
+            </div>
+
+            <div class="analysis-content">
+
+                <strong>
+                    {{ ai_analysis.analysis.crop }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- DISEASE + SEVERITY -->
+
+        <div class="row g-4 mb-4">
+
+            <!-- POSSIBLE DISEASE -->
+
+            <div class="col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        🦠
+                    </div>
+
+                    <div class="info-card-content">
+
+                        <span>
+                            POSSIBLE DISEASE
+                        </span>
+
+                        <strong>
+                            {{ ai_analysis.analysis.possible_disease }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SEVERITY -->
+
+            <div class="col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        ⚠️
+                    </div>
+
+                    <div class="info-card-content">
+
+                        <span>
+                            SEVERITY
+                        </span>
+
+                        <strong>
+                            {{ ai_analysis.analysis.severity }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- VISIBLE SYMPTOMS -->
+
+        <div class="analysis-card mb-4">
+
+            <div class="analysis-card-header">
+
+                <div class="analysis-icon">
+                    🔎
+                </div>
+
+                <div>
+
+                    <p>
+                        VISIBLE SYMPTOMS
+                    </p>
+
+                    <h3>
+                        Symptoms Detected
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="analysis-content">
+
+                {% if ai_analysis.analysis.symptoms %}
+
+                <ul>
+
+                    {% for symptom in ai_analysis.analysis.symptoms %}
+
+                    <li>
+                        {{ symptom }}
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+                {% else %}
+
+                <p>
+                    No clear symptoms were visible
+                    in the uploaded image.
+                </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- FARMER RECOMMENDATIONS -->
+
+        <div class="analysis-card mb-4">
+
+            <div class="analysis-card-header">
+
+                <div class="analysis-icon">
+                    💡
+                </div>
+
+                <div>
+
+                    <p>
+                        FARMER GUIDANCE
+                    </p>
+
+                    <h3>
+                        Recommendations
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="analysis-content">
+
+                {% if ai_analysis.analysis.recommendations %}
+
+                <ul>
+
+                    {% for recommendation
+                        in ai_analysis.analysis.recommendations %}
+
+                    <li>
+                        {{ recommendation }}
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+                {% else %}
+
+                <p>
+                    No recommendations were provided.
+                </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- ANALYSIS INFORMATION -->
+
+        <div class="row g-4 mb-4">
+
+            <!-- MODEL -->
+
+            <div class="col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        🤖
+                    </div>
+
+                    <div class="info-card-content">
+
+                        <span>
+                            MODEL
+                        </span>
+
+                        <strong>
+                            {{ ai_analysis.model }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROVIDER -->
+
+            <div class="col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        ☁️
+                    </div>
+
+                    <div class="info-card-content">
+
+                        <span>
+                            PROVIDER
+                        </span>
+
+                        <strong>
+                            {{ ai_analysis.provider }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DISCLAIMER -->
+
+        <div class="result-disclaimer">
+
+            <strong>
+                Important:
+            </strong>
+
+            This AI result is preliminary and for informational
+            purposes only. Confirm the diagnosis with an
+            agricultural expert before taking treatment action.
+
+        </div>
+
+    </div>
 
     {% endif %}
 

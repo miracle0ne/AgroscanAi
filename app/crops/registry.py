@@ -92,7 +92,38 @@ class CropAgent:
       image_array=np.expand_dims(image_array,axis=0)
       return image_array      
 
-    def analyze_crop(self, crop_name, image=None):
+    def analyze_crop(
+        self,
+        crop_name,
+        image=None,
+        mime_type="image/jpeg"
+    ):
+
+        crop = self.getcrop(crop_name)
+
+        if crop is None:
+            return {
+                "error": "crop not supported"
+            }
+
+        if image:
+
+            result = self.model.analyze_image(
+                image,
+                mime_type
+            )
+
+            return {
+                "crop": crop.name,
+                "ai_Analysis": result
+            }
+
+        return {
+            "crop": crop.name,
+            "symptoms": crop.symptoms,
+            "recommendations": crop.recommendations,
+        }
+
 
         crop = self.getcrop(crop_name)
 

@@ -24,12 +24,3 @@ response = requests.post(
 
 print("STATUS:", response.status_code)
 print("RESPONSE:", response.text)
-data =response.json()
-if response.status_code != 200:
-    return {
-        "error": "Cencori request failed",
-        "status": response.status_code,
-        "message": data.get("message", "Unknown Cencori error")
-    }
-
-analysis_text = data.get("analysis")

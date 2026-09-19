@@ -26,34 +26,48 @@ def scan():
         if not file or file.filename == "":
             return render_template("main/scan.html")
 
-        # Read image into memory
+        # Read uploaded image into memory
         image_bytes = file.read()
 
-        # Analyze image directly from memory
+        if not image_bytes:
+            return render_template("main/scan.html")
+
+        # Get the real MIME type from the uploaded image
+        mime_type = file.mimetype or "image/jpeg"
+
+        print("UPLOADED FILE:", file.filename)
+        print("UPLOAD MIME:", mime_type)
+        print("IMAGE BYTES:", len(image_bytes))
+
+        # Analyze image
         agent = CropAgent()
 
         result = agent.analyze_crop(
             crop,
-            io.BytesIO(image_bytes)
+            io.BytesIO(image_bytes),
+            mime_type
         )
 
         print("ANALYSIS RESULT:", result)
 
-        # Convert image to Base64 for displaying in browser
+        # Convert image to Base64 for browser display
         image_base64 = base64.b64encode(
             image_bytes
         ).decode("utf-8")
 
         image_url = (
-            f"data:{file.mimetype};base64,{image_base64}"
+            f"data:{mime_type};base64,{image_base64}"
         )
 
-        ai_analysis = result["ai_Analysis"]
+        ai_analysis = result.get(
+            "ai_Analysis",
+            {}
+        )
 
         return render_template(
             "main/result.html",
             image_url=image_url,
-            crop=result["crop"],
+            crop=result.get("crop", crop),
             ai_analysis=ai_analysis
         )
 
