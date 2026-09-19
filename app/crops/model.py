@@ -65,31 +65,39 @@ class Agromodel:
         print("IMAGE BYTES:", len(image_bytes))
         print("IMAGE MIME:", mime_type)
 
-        response = requests.post(
-            "https://cencori.com/api/ai/vision",
+        try:
+            response = requests.post(
+                "https://cencori.com/api/ai/vision",
 
-            headers={
-                "CENCORI_API_KEY": self.api_key
-            },
+                headers={
+                    "CENCORI_API_KEY": self.api_key
+                },
 
-            files={
-                "file": (
-                    "plant",
-                    image_bytes,
-                    mime_type
-                )
-            },
+                files={
+                    "file": (
+                        "plant",
+                        image_bytes,
+                        mime_type
+                    )
+                },
 
-            data=data,
+                data=data,
 
-            timeout=60
-        )
+                timeout=60
+            )
+
+        except requests.RequestException as e:
+            return {
+                "error": "Unable to connect to Cencori",
+                "message": str(e)
+            }
 
         print("CENCORI STATUS:", response.status_code)
         print("CENCORI RESPONSE:", response.text)
 
         try:
             response_data = response.json()
+            final_response_data = response_data
 
         except ValueError:
 
@@ -186,6 +194,8 @@ class Agromodel:
 
                 retry_result = retry_response.json()
 
+                final_response_data = retry_result
+
                 retry_text = retry_result.get("analysis")
 
                 if not retry_text:
@@ -217,17 +227,17 @@ class Agromodel:
 
         return {
             "analysis": analysis,
-            "model": response_data.get("model"),
-            "provider": response_data.get("provider"),
-            "usage": response_data.get("usage"),
-            "cost": response_data.get("cost"),
-            "usedFallback": response_data.get(
+            "model": final_response_data.get("model"),
+            "provider": final_response_data.get("provider"),
+            "usage": final_response_data.get("usage"),
+            "cost": final_response_data.get("cost"),
+            "usedFallback": final_response_data.get(
                 "usedFallback"
             ),
-            "originalModel": response_data.get(
+            "originalModel": final_response_data.get(
                 "originalModel"
             ),
-            "originalProvider": response_data.get(
+            "originalProvider": final_response_data.get(
                 "originalProvider"
             )
         }
