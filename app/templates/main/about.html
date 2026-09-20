@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- ABOUT HERO -->
+<section class="features-section py-5">
+
+    <div class="container text-center">
+
+        <p class="hero-label">
+            ABOUT AGROSCAN AI
+        </p>
+
+        <h1 class="fw-bold">
+            Making Plant Health Information More Accessible
+        </h1>
+
+        <p class="mt-3">
+            AI-powered plant health analysis designed with African farmers in mind.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- MAIN ABOUT CARD -->
+<section class="scan-card-section">
+
+    <div class="container">
+
+        <div class="scan-card">
+
+            <div class="row align-items-center g-0">
+
+                <!-- IMAGE -->
+                <div class="col-lg-6">
+
+                    <img
+                        src="{{ url_for('static', filename='images/scan.jpeg') }}"
+                        class="scan-image"
+                        alt="Farmer using AgroScan AI to scan a plant"
+                    >
+
+                </div>
+
+
+                <!-- CONTENT -->
+                <div class="col-lg-6">
+
+                    <div class="scan-content">
+
+                        <p class="hero-label">
+                            WHAT IS AGROSCAN AI?
+                        </p>
+
+                        <h2>
+                            Understand Your Plant Better
+                        </h2>
+
+                        <p>
+                            AgroScan AI is an AI-powered plant health analysis
+                            platform that helps farmers get preliminary insights
+                            about possible plant diseases from a plant image.
+                        </p>
+
+                        <p>
+                            Select a supported crop, upload a clear plant image,
+                            and receive information about the possible disease,
+                            severity, symptoms and recommended actions.
+                        </p>
+
+                        <a href="/scan" class="btn btn-neon">
+                            Scan a Plant
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+<section class="features-section py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <p class="hero-label">
+                THE BUILDER
+            </p>
+
+            <h2 class="fw-bold">
+                Built With Purpose
+            </h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- FOUNDER -->
+            <div class="col-md-4">
+
+                <div class="feature-card h-100">
+
+                    <div class="feature-icon">
+                        👨‍💻
+                    </div>
+
+                    <h4>
+                        Founder
+                    </h4>
+
+                    <p>
+                        AgroScan AI is built by
+                        <strong>Unique Mlungu</strong>
+                        under <strong>MiracleSoft</strong>.
+                    </p>
+
+                    <p class="mb-0">
+                        Built and shipped from Tanzania, Africa.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- TECHNOLOGY -->
+            <div class="col-md-4">
+
+                <div class="feature-card h-100">
+
+                    <div class="feature-icon">
+                        🤖
+                    </div>
+
+                    <h4>
+                        AI Technology
+                    </h4>
+
+                    <p>
+                        AgroScan AI uses
+                        <strong>Cencori AI Vision</strong>
+                        to analyze plant images and generate structured
+                        preliminary plant-health insights.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MISSION -->
+            <div class="col-md-4">
+
+                <div class="feature-card h-100">
+
+                    <div class="feature-icon">
+                        🌍
+                    </div>
+
+                    <h4>
+                        Our Mission
+                    </h4>
+
+                    <p>
+                        Make preliminary plant health information more
+                        accessible to African farmers through a simple
+                        image-based workflow.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section class="features-section py-5">
+
+    <div class="container">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📩
+            </div>
+
+            <h4>
+                Contact & Support
+            </h4>
+
+            <p>
+                Have feedback, questions, or need support?
+            </p>
+
+            <p>
+                <a href="mailto:uniquemlungu04@gmail.com">
+                    uniquemlungu04@gmail.com
+                </a>
+            </p>
+
+            <p class="mb-0">
+
+                <a
+                    href="https://www.facebook.com/profile.php?id=61584282399779"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Facebook
+                </a>
+
+                <span class="mx-2">•</span>
+
+                <a
+                    href="https://www.youtube.com/@miracletech53"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    YouTube
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DISCLAIMER -->
+<section class="container pb-5">
+
+    <div class="alert alert-warning text-center">
+
+        <strong>Important:</strong>
+        AgroScan AI provides preliminary AI-generated information.
+        Results should not be treated as a definitive agricultural diagnosis.
+
+    </div>
+
+</section>
+
+{% endblock %}
