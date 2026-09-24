@@ -52,7 +52,8 @@
                     id="plantImage"
                     name="plant_image"
                     class="form-control"
-                    accept="image/*"
+                    accept="image/*,.heif,.heic"
+                    capture="environment"
                     required
                 >
 
@@ -62,6 +63,30 @@
                 <div
                     id="imagePreview"
                     class="image-preview mt-4">
+                </div>
+
+
+                <!-- PILOT CODE -->
+
+                <div class="mt-4 text-start">
+
+                    <label
+                        for="user_code"
+                        class="form-label fw-bold">
+
+                        Pilot Code
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="user_code"
+                        name="user_code"
+                        class="form-control"
+                        placeholder="Example: F001"
+                        required
+                    >
+
                 </div>
 
 
@@ -113,9 +138,18 @@
 
                 <button
                     type="submit"
+                    id="analyzeButton"
                     class="btn btn-neon mt-4">
 
-                    Analyze Plant
+                    <span id="buttonText">Analyze Plant</span>
+
+                    <span
+                        id="buttonSpinner"
+                        class="spinner-border spinner-border-sm ms-2"
+                        role="status"
+                        aria-hidden="true"
+                        style="display: none;">
+                    </span>
 
                 </button>
 
@@ -168,6 +202,20 @@
 
     });
 
+</script>
+
+
+<script>
+const scanForm = document.querySelector("form");
+const analyzeButton = document.getElementById("analyzeButton");
+const buttonText = document.getElementById("buttonText");
+const buttonSpinner = document.getElementById("buttonSpinner");
+
+scanForm.addEventListener("submit", function () {
+    analyzeButton.disabled = true;
+    buttonText.textContent = "Analyzing...";
+    buttonSpinner.style.display = "inline-block";
+});
 </script>
 
 {% endblock %}

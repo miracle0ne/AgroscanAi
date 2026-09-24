@@ -1,26 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>AgroScan AI</title>
-
-    <meta name="description"
-          content="AI-powered plant health analysis for African farmers.">
-
-    <meta property="og:title" content="AgroScan AI">
-    <meta property="og:description"
-          content="AI-powered plant health analysis for African farmers.">
-    <meta property="og:image"
-          content="{{ url_for('static', filename='images/og_image.jpeg', _external=True) }}">
-    <meta property="og:url"
-          content="https://agroscanai.pxxlspace.cv/">
-    <meta property="og:type" content="website">
-
-    <link rel="icon"
-          type="image/png"
-          href="{{ url_for('static', filename='images/favicon.png') }}">
   
     <link
     rel="stylesheet"
@@ -68,10 +49,10 @@
 
     </div>
 </nav>
-    <main class="flex-grow-1">
+    <main class="flex-grow-1"
     {% block content %}
     {% endblock %}
-    </main>
+      </main>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   <footer class="bg-dark text-white text-center py-4">
     <p class="mb-1">🌿 AgroScan AI</p>
