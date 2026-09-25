@@ -19,6 +19,8 @@
                 <img
                     src="{{ url_for('static', filename='images/scan.jpeg') }}"
                     alt="Farmer scanning a maize plant"
+                    fetchpriority="High"
+                    decoding="async"
                 >
 
                 <div class="slider-overlay"></div>
@@ -49,6 +51,8 @@
     <img
         src="{{ url_for('static', filename='images/Scanunion.jpeg') }}"
         alt="Farmer scanning an onion plant"
+        loading="lazy"
+        decoding="async"
     >
 
     <div class="slider-overlay"></div>
@@ -79,6 +83,8 @@
     <img
         src="{{ url_for('static', filename='images/To2.jpeg') }}"
         alt="Farmer scanning a tomato plant"
+        loading="lazy"
+        decoding="async"
     >
 
     <div class="slider-overlay"></div>
@@ -144,6 +150,8 @@
                         src="{{ url_for('static', filename='images/scan.jpeg') }}"
                         class="scan-image"
                         alt="Farmer scanning a plant leaf"
+                        loading="lazy"
+                        decoding="async"
                     >
 
                 </div>
