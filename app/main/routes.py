@@ -22,6 +22,7 @@ def home():
 
 @main.route("/scan", methods=["POST", "GET"])
 def scan():
+    print("SCAN REQUEST RECEIVED")
 
     if request.method == "POST":
 

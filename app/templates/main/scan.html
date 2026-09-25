@@ -41,7 +41,9 @@
 
 
             <form
+                id="scanForm"
                 method="POST"
+                action="{{ url_for('main.scan') }}"
                 enctype="multipart/form-data"
             >
 
@@ -52,7 +54,7 @@
                     id="plantImage"
                     name="plant_image"
                     class="form-control"
-                    accept="image/*,.hief,.heic"
+                    accept="image/*,.heif,.heic"
                     
                     required
                 >
@@ -206,7 +208,7 @@
 
 
 <script>
-const scanForm = document.querySelector("form");
+const scanForm = document.getElementById("scanForm");
 const analyzeButton = document.getElementById("analyzeButton");
 const buttonText = document.getElementById("buttonText");
 const buttonSpinner = document.getElementById("buttonSpinner");
