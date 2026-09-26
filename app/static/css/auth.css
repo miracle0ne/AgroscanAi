@@ -1,0 +1,98 @@
+/* =========================================
+   AGROSCAN AI - AUTHENTICATION
+   ========================================= */
+
+.auth-badge {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2rem;
+
+    border-radius: 50%;
+    background: linear-gradient(135deg, #198754, #20c997);
+    box-shadow: 0 10px 25px rgba(25, 135, 84, 0.25);
+
+    animation:
+        auth-badge-float 3s ease-in-out infinite,
+        auth-badge-pulse 2.5s ease-in-out infinite;
+}
+
+/* Password strength area */
+
+.auth-password-progress {
+    height: 6px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#passwordStrength {
+    transition: width 0.3s ease;
+}
+
+/* Form interaction */
+
+.auth-badge + h1 {
+    letter-spacing: -0.02em;
+}
+
+.auth-badge ~ p {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Inputs */
+
+.auth-password-progress + small {
+    display: block;
+    margin-top: 6px;
+}
+
+/* Badge animation */
+
+@keyframes auth-badge-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+@keyframes auth-badge-pulse {
+    0%,
+    100% {
+        box-shadow:
+            0 10px 25px rgba(25, 135, 84, 0.25);
+    }
+
+    50% {
+        box-shadow:
+            0 14px 32px rgba(25, 135, 84, 0.40);
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 576px) {
+
+    .auth-badge {
+        width: 64px;
+        height: 64px;
+        font-size: 1.7rem;
+    }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .auth-badge {
+        animation: none;
+    }
+}

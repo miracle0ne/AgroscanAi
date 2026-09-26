@@ -1,8 +1,10 @@
 from app.extensions import db
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = "users"
 
     id = db.Column(
@@ -21,6 +23,12 @@ class User(db.Model):
         nullable=False
     )
 
+    email = db.Column(
+        db.String(150),
+        unique=True,
+        nullable=True
+    )
+
     phone = db.Column(
         db.String(30),
         unique=True
@@ -28,6 +36,11 @@ class User(db.Model):
 
     location = db.Column(
         db.String(150)
+    )
+
+    password_hash = db.Column(
+        db.String(255),
+        nullable=True
     )
 
     role_id = db.Column(
@@ -51,3 +64,12 @@ class User(db.Model):
         backref="user",
         lazy=True
     )
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(
+            self.password_hash,
+            password
+        )

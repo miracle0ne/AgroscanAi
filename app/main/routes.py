@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request
+from flask_login import login_required, current_user
 
 from app.crops.registry import CropAgent
 from app.utils.image import prepare_image
-from app.models.users import User
 from app.extensions import db
 from app.pilot.models import PilotRecord
 
@@ -24,37 +24,56 @@ def about():
     return render_template("main/about.html")
 
 
+@main.route("/dashboard")
+@login_required
+def dashboard():
+    recent_scans = (
+        PilotRecord.query
+        .filter_by(user_id=current_user.id)
+        .order_by(PilotRecord.created_at.desc())
+        .limit(5)
+        .all()
+    )
+
+    total_scans = (
+        PilotRecord.query
+        .filter_by(user_id=current_user.id)
+        .count()
+    )
+
+    return render_template(
+        "main/dashboard.html",
+        recent_scans=recent_scans,
+        total_scans=total_scans
+    )
+
+
 @main.route("/scan", methods=["POST", "GET"])
+@login_required
 def scan():
 
     print("SCAN REQUEST RECEIVED")
+    print(
+        "CURRENT USER:",
+        current_user.user_code,
+        current_user.name
+    )
 
     if request.method == "POST":
 
         file = request.files.get("plant_image")
         crop = request.form.get("crop")
-        user_code = request.form.get("user_code")
 
         print("FORM KEYS:", list(request.form.keys()))
         print("FILE KEYS:", list(request.files.keys()))
         print("CROP RECEIVED:", crop)
-        print("USER CODE RECEIVED:", user_code)
-
-        if not user_code:
-            print("SCAN STOP: user_code missing")
-            return render_template("main/scan.html")
-
-        user = User.query.filter_by(
-            user_code=user_code
-        ).first()
-
-        if not user:
-            print("SCAN STOP: user not found")
-            return render_template("main/scan.html")
+        print("CURRENT USER:", current_user.user_code)
 
         if not file or file.filename == "":
             print("SCAN STOP: image missing")
             return render_template("main/scan.html")
+
+        user = current_user
 
         try:
             print("IMAGE PREPARATION START")
@@ -89,9 +108,11 @@ def scan():
             print("AI ANALYSIS ERROR:", error)
             return render_template("main/scan.html")
 
-        image_base64 = base64.b64encode(
-            image_bytes
-        ).decode("utf-8")
+        image_base64 = (
+            base64
+            .b64encode(image_bytes)
+            .decode("utf-8")
+        )
 
         image_url = (
             f"data:{mime_type};base64,"
@@ -131,7 +152,6 @@ def scan():
             )
 
         else:
-
             print(
                 "PILOT RECORD NOT SAVED:",
                 ai_analysis.get("error")
@@ -146,3 +166,48 @@ def scan():
         )
 
     return render_template("main/scan.html")
+@main.route("/profile")
+@login_required
+def profile():
+    return render_template(
+        "main/profile.html"
+    )
+@main.route("/history")
+@login_required
+def history():
+
+    scans = (
+        PilotRecord.query
+        .filter_by(user_id=current_user.id)
+        .order_by(PilotRecord.created_at.desc())
+        .all()
+    )
+
+    for scan in scans:
+
+        try:
+            scan.symptoms = (
+                json.loads(scan.symptoms)
+                if isinstance(scan.symptoms, str)
+                else scan.symptoms
+            )
+        except (json.JSONDecodeError, TypeError):
+            scan.symptoms = [scan.symptoms] if scan.symptoms else []
+
+        try:
+            scan.recommendations = (
+                json.loads(scan.recommendations)
+                if isinstance(scan.recommendations, str)
+                else scan.recommendations
+            )
+        except (json.JSONDecodeError, TypeError):
+            scan.recommendations = (
+                [scan.recommendations]
+                if scan.recommendations
+                else []
+            )
+
+    return render_template(
+        "main/history.html",
+        scans=scans
+    )

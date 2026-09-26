@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Profile | AgroScan AI{% endblock %}
+
+{% block content %}
+
+<div class="container py-4 py-md-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-md-8 col-lg-6">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-4 p-md-5">
+
+                    <div class="text-center mb-4">
+
+                        <div class="auth-badge mx-auto mb-3">
+                            🌿
+                        </div>
+
+                        <h1 class="h4 fw-bold mb-1">
+                            {{ current_user.name }}
+                        </h1>
+
+                        <p class="text-secondary mb-0">
+                            Farmer Profile
+                        </p>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-secondary d-block">
+                            User Code
+                        </small>
+
+                        <strong>
+                            {{ current_user.user_code }}
+                        </strong>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-secondary d-block">
+                            Email
+                        </small>
+
+                        <strong>
+                            {{ current_user.email }}
+                        </strong>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-secondary d-block">
+                            Phone
+                        </small>
+
+                        <strong>
+                            {{ current_user.phone or "Not provided" }}
+                        </strong>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-secondary d-block">
+                            Location
+                        </small>
+
+                        <strong>
+                            {{ current_user.location or "Not provided" }}
+                        </strong>
+                    </div>
+
+                    <div class="mb-4">
+                        <small class="text-secondary d-block">
+                            Role
+                        </small>
+
+                        <strong>
+                            {{ current_user.role.name|title }}
+                        </strong>
+                    </div>
+
+                    <div class="d-grid">
+
+                        <a
+                            href="{{ url_for('main.dashboard') }}"
+                            class="btn btn-success"
+                        >
+                            Back to Dashboard
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

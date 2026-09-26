@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block title %}Create Account | AgroScan AI{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+
+            <div class="card border-0 shadow-lg overflow-hidden">
+
+                <div class="card-body p-4 p-md-5">
+
+                    <!-- Animated badge will be styled in auth.css -->
+                    <div class="text-center mb-4">
+                        <div class="auth-badge mx-auto mb-3">
+                            🌿
+                        </div>
+
+                        <h1 class="h3 fw-bold mb-2">
+                            Create your AgroScan AI account
+                        </h1>
+
+                        <p class="text-secondary mb-0">
+                            Register to start scanning your crops with AI.
+                        </p>
+                    </div>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="alert"
+                                        aria-label="Close">
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form method="POST" novalidate>
+
+                        {{ form.hidden_tag() }}
+
+                        <div class="row g-3">
+
+                            <!-- Full name -->
+                            <div class="col-12">
+                                {{ form.name.label(class="form-label fw-semibold") }}
+
+                                {{ form.name(
+                                    class="form-control form-control-lg",
+                                    placeholder="Enter your full name",
+                                    autocomplete="name"
+                                ) }}
+
+                                {% for error in form.name.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-12 col-md-6">
+                                {{ form.email.label(class="form-label fw-semibold") }}
+
+                                {{ form.email(
+                                    class="form-control form-control-lg",
+                                    placeholder="you@example.com",
+                                    autocomplete="email"
+                                ) }}
+
+                                {% for error in form.email.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="col-12 col-md-6">
+                                {{ form.phone.label(class="form-label fw-semibold") }}
+
+                                {{ form.phone(
+                                    class="form-control form-control-lg",
+                                    placeholder="+255...",
+                                    autocomplete="tel"
+                                ) }}
+
+                                {% for error in form.phone.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Location -->
+                            <div class="col-12">
+                                {{ form.location.label(class="form-label fw-semibold") }}
+
+                                {{ form.location(
+                                    class="form-control form-control-lg",
+                                    placeholder="District / Region",
+                                    autocomplete="address-level2"
+                                ) }}
+
+                                {% for error in form.location.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Password -->
+                            <div class="col-12 col-md-6">
+                                <label
+                                    for="{{ form.password.id }}"
+                                    class="form-label fw-semibold">
+                                    Password
+                                </label>
+
+                                <div class="input-group input-group-lg">
+                                    {{ form.password(
+                                        class="form-control",
+                                        placeholder="Create a password",
+                                        autocomplete="new-password"
+                                    ) }}
+
+                                    <button
+                                        class="btn btn-outline-secondary toggle-password"
+                                        type="button"
+                                        data-target="{{ form.password.id }}">
+                                        Show
+                                    </button>
+                                </div>
+
+                                <div class="form-text">
+                                    Minimum 8 characters.
+                                </div>
+
+                                {% for error in form.password.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Confirm password -->
+                            <div class="col-12 col-md-6">
+                                <label
+                                    for="{{ form.confirm_password.id }}"
+                                    class="form-label fw-semibold">
+                                    Confirm Password
+                                </label>
+
+                                <div class="input-group input-group-lg">
+                                    {{ form.confirm_password(
+                                        class="form-control",
+                                        placeholder="Repeat your password",
+                                        autocomplete="new-password"
+                                    ) }}
+
+                                    <button
+                                        class="btn btn-outline-secondary toggle-password"
+                                        type="button"
+                                        data-target="{{ form.confirm_password.id }}">
+                                        Show
+                                    </button>
+                                </div>
+
+                                {% for error in form.confirm_password.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Password strength -->
+                            <div class="col-12">
+                                <div class="progress auth-password-progress">
+                                    <div
+                                        id="passwordStrength"
+                                        class="progress-bar"
+                                        role="progressbar"
+                                        style="width: 0%">
+                                    </div>
+                                </div>
+
+                                <small
+                                    id="passwordStrengthText"
+                                    class="text-secondary">
+                                    Password strength
+                                </small>
+                            </div>
+
+                            <!-- Submit -->
+                            <div class="col-12 mt-4">
+                                {{ form.submit(
+                                    class="btn btn-success btn-lg w-100",
+                                    value="Create Account"
+                                ) }}
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <span class="text-secondary">
+                            Already have an account?
+                        </span>
+
+                        <a
+                            href="{{ url_for('auth.login') }}"
+                            class="fw-semibold text-decoration-none">
+                            Login
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | AgroScan AI{% endblock %}
+
+{% block content %}
+
+<div class="container py-4 py-md-5">
+
+    <!-- Welcome -->
+    <div class="mb-4">
+
+        <p class="text-success fw-semibold mb-1">
+            AgroScan AI
+        </p>
+
+        <h1 class="h3 fw-bold mb-2">
+            Welcome back, {{ current_user.name }}
+        </h1>
+
+        <p class="text-secondary mb-0">
+            Monitor your crop scans and get AI-powered insights.
+        </p>
+
+    </div>
+
+
+    <!-- Quick actions -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-12 col-md-8">
+
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-start">
+
+                        <div>
+                            <h2 class="h5 fw-bold">
+                                Scan a plant
+                            </h2>
+
+                            <p class="text-secondary mb-3">
+                                Upload a crop image and get an AI analysis.
+                            </p>
+                        </div>
+
+                        <span class="fs-2">🌿</span>
+
+                    </div>
+
+                    <a
+                        href="{{ url_for('main.scan') }}"
+                        class="btn btn-success"
+                    >
+                        Scan New Plant
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Total scans -->
+        <div class="col-12 col-md-4">
+
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4">
+
+                    <p class="text-secondary mb-2">
+                        Total Scans
+                    </p>
+
+                    <div class="display-5 fw-bold text-success">
+                        {{ total_scans }}
+                    </div>
+
+                    <small class="text-secondary">
+                        Your recorded crop analyses
+                    </small>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- User information -->
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <h2 class="h5 fw-bold mb-0">
+                    Your account
+                </h2>
+
+                <a
+                    href="{{ url_for('main.profile') }}"
+                    class="btn btn-outline-success btn-sm"
+                >
+                    View Profile
+                </a>
+
+            </div>
+
+            <div class="row g-3">
+
+                <div class="col-12 col-md-4">
+                    <small class="text-secondary d-block">
+                        User Code
+                    </small>
+
+                    <strong>
+                        {{ current_user.user_code }}
+                    </strong>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <small class="text-secondary d-block">
+                        Email
+                    </small>
+
+                    <strong>
+                        {{ current_user.email }}
+                    </strong>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <small class="text-secondary d-block">
+                        Role
+                    </small>
+
+                    <strong>
+                        {{ current_user.role.name|title }}
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Recent scans -->
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <h2 class="h5 fw-bold mb-0">
+                    Recent Scans
+                </h2>
+
+                <a
+                    href="{{ url_for('main.history') }}"
+                    class="text-success text-decoration-none fw-semibold"
+                >
+                    View all
+                </a>
+
+            </div>
+
+
+            {% if recent_scans %}
+
+                <div class="list-group list-group-flush">
+
+                    {% for scan in recent_scans %}
+
+                        <div class="list-group-item px-0 py-3">
+
+                            <div class="d-flex justify-content-between gap-3">
+
+                                <div>
+
+                                    <div class="fw-semibold">
+                                        {{ scan.crop }}
+                                    </div>
+
+                                    <small class="text-secondary">
+                                        {{ scan.created_at.strftime("%d %b %Y, %H:%M") }}
+                                    </small>
+
+                                </div>
+
+                                <div class="text-end">
+
+                                    {% if scan.ai_diagnosis %}
+                                        <span class="small">
+                                            {{ scan.ai_diagnosis }}
+                                        </span>
+                                    {% else %}
+                                        <span class="text-secondary small">
+                                            Analysis pending
+                                        </span>
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="text-center py-4">
+
+                    <div class="fs-1 mb-2">
+                        🌱
+                    </div>
+
+                    <h3 class="h6 fw-bold">
+                        No scans yet
+                    </h3>
+
+                    <p class="text-secondary mb-3">
+                        Your crop analysis history will appear here.
+                    </p>
+
+                    <a
+                        href="{{ url_for('main.scan') }}"
+                        class="btn btn-success"
+                    >
+                        Start Your First Scan
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

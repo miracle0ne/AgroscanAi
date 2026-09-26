@@ -39,7 +39,7 @@
                         possible plant diseases.
                     </p>
 
-                    <a href="/scan" class="btn btn-neon">
+                    <a href="{% if current_user.is_authenticated %}{{ url_for('main.scan') }}{% else %}{{ url_for('auth.login') }}{% endif %}" class="btn btn-neon">
                         Scan Plant
                     </a>
 
@@ -71,7 +71,7 @@
             possible plant diseases.
         </p>
 
-        <a href="/scan" class="btn btn-neon">
+        <a href="{% if current_user.is_authenticated %}{{ url_for('main.scan') }}{% else %}{{ url_for('auth.login') }}{% endif %}" class="btn btn-neon">
             Scan Plant
         </a>
 
@@ -103,7 +103,7 @@
             possible plant diseases.
         </p>
 
-        <a href="/scan" class="btn btn-neon">
+        <a href="{% if current_user.is_authenticated %}{{ url_for('main.scan') }}{% else %}{{ url_for('auth.login') }}{% endif %}" class="btn btn-neon">
             Scan Plant
         </a>
 
@@ -179,7 +179,7 @@
                             possible plant diseases.
                         </p>
 
-                        <a href="/scan" class="btn btn-neon">
+                        <a href="{% if current_user.is_authenticated %}{{ url_for('main.scan') }}{% else %}{{ url_for('auth.login') }}{% endif %}" class="btn btn-neon">
                             Scan Now
                         </a>
 

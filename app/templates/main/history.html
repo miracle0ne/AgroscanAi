@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block title %}Scan History | AgroScan AI{% endblock %}
+
+{% block content %}
+
+<div class="container py-4 py-md-5">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <p class="text-success fw-semibold mb-1">
+                AgroScan AI
+            </p>
+
+            <h1 class="h3 fw-bold mb-1">
+                Scan History
+            </h1>
+
+            <p class="text-secondary mb-0">
+                Your previous crop analyses.
+            </p>
+        </div>
+
+        <a
+            href="{{ url_for('main.scan') }}"
+            class="btn btn-success"
+        >
+            + New Scan
+        </a>
+
+    </div>
+
+
+    {% if scans %}
+
+        <div class="row g-4">
+
+            {% for scan in scans %}
+
+                <div class="col-12">
+
+                    <div
+                        class="card border-0 shadow-sm overflow-hidden"
+                        style="border-radius: 18px;"
+                    >
+
+                        <!-- MAIN CARD -->
+                        <div class="card-body p-4">
+
+                            <div class="row align-items-center g-4">
+
+                                <!-- CROP -->
+                                <div class="col-12 col-md-3">
+
+                                    <small class="text-secondary d-block mb-1">
+                                        Crop
+                                    </small>
+
+                                    <div class="d-flex align-items-center gap-2">
+
+                                        <span style="font-size: 1.4rem;">
+                                            🌱
+                                        </span>
+
+                                        <strong class="fs-5">
+                                            {{ scan.crop }}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- DIAGNOSIS -->
+                                <div class="col-12 col-md-4">
+
+                                    <small class="text-secondary d-block mb-2">
+                                        AI Diagnosis
+                                    </small>
+
+                                    {% if scan.ai_diagnosis %}
+
+                                        <span
+                                            class="badge bg-success-subtle text-success px-3 py-2"
+                                            style="font-size: 0.9rem;"
+                                        >
+                                            {{ scan.ai_diagnosis }}
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="text-secondary">
+                                            No diagnosis recorded
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <!-- DATE -->
+                                <div class="col-12 col-md-3">
+
+                                    <small class="text-secondary d-block mb-1">
+                                        Date
+                                    </small>
+
+                                    <span class="small">
+                                        {{ scan.created_at.strftime("%d %b %Y, %H:%M") }}
+                                    </span>
+
+                                </div>
+
+
+                                <!-- DETAILS -->
+                                <div class="col-12 col-md-2 text-md-end">
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-success btn-sm px-3"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#scan-{{ scan.id }}"
+                                        aria-expanded="false"
+                                        aria-controls="scan-{{ scan.id }}"
+                                    >
+                                        View Details
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- DETAILS -->
+                            <div
+                                id="scan-{{ scan.id }}"
+                                class="collapse mt-4"
+                            >
+
+                                <hr class="mb-4">
+
+
+                                <!-- SYMPTOMS -->
+                                {% if scan.symptoms %}
+
+                                    <div class="mb-4">
+
+                                        <h2 class="h6 fw-bold mb-3">
+                                            🩺 Symptoms
+                                        </h2>
+
+                                        <div
+                                            class="p-3"
+                                            style="
+                                                background: #f8f9fa;
+                                                border-radius: 12px;
+                                            "
+                                        >
+
+                                            <ul class="mb-0 ps-4">
+
+                                                {% for symptom in scan.symptoms %}
+
+                                                    <li class="mb-2 text-secondary">
+                                                        {{ symptom }}
+                                                    </li>
+
+                                                {% endfor %}
+
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+
+                                {% endif %}
+
+
+                                <!-- RECOMMENDATIONS -->
+                                {% if scan.recommendations %}
+
+                                    <div>
+
+                                        <h2 class="h6 fw-bold mb-3">
+                                            💡 Recommendations
+                                        </h2>
+
+                                        <div
+                                            class="p-3"
+                                            style="
+                                                background: #f8f9fa;
+                                                border-radius: 12px;
+                                            "
+                                        >
+
+                                            <ul class="mb-0 ps-4">
+
+                                                {% for recommendation in scan.recommendations %}
+
+                                                    <li class="mb-2 text-secondary">
+                                                        {{ recommendation }}
+                                                    </li>
+
+                                                {% endfor %}
+
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div
+            class="card border-0 shadow-sm"
+            style="border-radius: 18px;"
+        >
+
+            <div class="card-body text-center py-5">
+
+                <div class="fs-1 mb-3">
+                    🌱
+                </div>
+
+                <h2 class="h5 fw-bold">
+                    No scan history yet
+                </h2>
+
+                <p class="text-secondary mb-4">
+                    Your crop analyses will appear here after you complete a scan.
+                </p>
+
+                <a
+                    href="{{ url_for('main.scan') }}"
+                    class="btn btn-success"
+                >
+                    Scan Your First Plant
+                </a>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
