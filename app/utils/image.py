@@ -2,9 +2,13 @@ import os
 import tempfile
 
 from PIL import Image
-from pillow_heif import register_heif_opener
 
-register_heif_opener()
+try:
+    from pillow_heif import register_heif_opener
+    register_heif_opener()
+    HEIF_AVAILABLE = True
+except ImportError:
+    HEIF_AVAILABLE = False
 
 
 def prepare_image(file):
@@ -27,7 +31,14 @@ def prepare_image(file):
     )[1].lower()
 
     if extension in {".heic", ".heif"}:
+
+        if not HEIF_AVAILABLE:
+            raise ValueError(
+                "HEIC/HEIF images are not supported on this server."
+            )
+
         with tempfile.TemporaryDirectory() as temp:
+
             input_file = os.path.join(
                 temp,
                 "plant" + extension
