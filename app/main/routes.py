@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, send_from_directory, Response
 from flask_login import login_required, current_user
 
 from app.crops.registry import CropAgent
@@ -13,7 +13,48 @@ import json
 
 main = Blueprint("main", __name__)
 
+@main.route("/robots.txt")
+def robots_txt():
+    return send_from_directory(
+        "static",
+        "robots.txt",
+        mimetype="text/plain"
+    )
 
+
+@main.route("/sitemap.xml")
+def sitemap():
+    pages = [
+        {
+            "loc": "https://agroscanai.pxxlspace.cv/",
+            "changefreq": "weekly",
+            "priority": "1.0"
+        },
+        {
+            "loc": "https://agroscanai.pxxlspace.cv/about",
+            "changefreq": "monthly",
+            "priority": "0.8"
+        }
+    ]
+
+    sitemap_xml = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+"""
+
+    for page in pages:
+        sitemap_xml += f"""    <url>
+        <loc>{page["loc"]}</loc>
+        <changefreq>{page["changefreq"]}</changefreq>
+        <priority>{page["priority"]}</priority>
+    </url>
+"""
+
+    sitemap_xml += "</urlset>"
+
+    return Response(
+        sitemap_xml,
+        mimetype="application/xml"
+    )
 @main.route("/")
 def home():
     return render_template("main/home.html")
@@ -182,30 +223,6 @@ def history():
         .order_by(PilotRecord.created_at.desc())
         .all()
     )
-
-    for scan in scans:
-
-        try:
-            scan.symptoms = (
-                json.loads(scan.symptoms)
-                if isinstance(scan.symptoms, str)
-                else scan.symptoms
-            )
-        except (json.JSONDecodeError, TypeError):
-            scan.symptoms = [scan.symptoms] if scan.symptoms else []
-
-        try:
-            scan.recommendations = (
-                json.loads(scan.recommendations)
-                if isinstance(scan.recommendations, str)
-                else scan.recommendations
-            )
-        except (json.JSONDecodeError, TypeError):
-            scan.recommendations = (
-                [scan.recommendations]
-                if scan.recommendations
-                else []
-            )
 
     return render_template(
         "main/history.html",
