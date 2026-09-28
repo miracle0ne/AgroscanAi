@@ -28,6 +28,12 @@ def llms_txt():
         "llms.txt",
         mimetype="text/plain"
     )
+@main.route("/google2e9c7b5102dab568.html")
+def google_verification():
+    return "google-site-verification: google2e9c7b5102dab568.html"
+
+
+
 @main.route("/sitemap.xml")
 def sitemap():
     pages = [
