@@ -21,7 +21,13 @@ def robots_txt():
         mimetype="text/plain"
     )
 
-
+@main.route("/llms.txt")
+def llms_txt():
+    return send_from_directory(
+        "static",
+        "llms.txt",
+        mimetype="text/plain"
+    )
 @main.route("/sitemap.xml")
 def sitemap():
     pages = [
