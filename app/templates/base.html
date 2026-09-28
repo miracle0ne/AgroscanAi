@@ -39,7 +39,31 @@
      <meta
         property="og:image"
         content="{{ url_for('static', filename='images/og_image.jpeg', _external=True) }}">
-
+        <script type="application/ld+json">
+          {
+              "@context": "https://schema.org",
+              "@graph": [
+                  {
+                      "@type": "Organization",
+                      "name": "AgroScan AI",
+                      "url": "https://agroscanai.pxxlspace.cv/",
+                      "logo": "https://agroscanai.pxxlspace.cv/static/images/og_image.jpeg",
+                      "description": "AI-powered plant disease detection and crop health decision support for African farmers.",
+                      "email": "uniquemlungu04@gmail.com",
+                      "address": {
+                          "@type": "PostalAddress",
+                          "addressCountry": "TZ"
+                      }
+                  },
+                  {
+                      "@type": "WebSite",
+                      "name": "AgroScan AI",
+                      "url": "https://agroscanai.pxxlspace.cv/",
+                      "description": "AI-powered crop health detection and decision support for African farmers."
+                  }
+              ]
+          }
+        </script>
     <link
         rel="stylesheet"
         href="{{ url_for('static', filename='css/style.css', v='2') }}">
