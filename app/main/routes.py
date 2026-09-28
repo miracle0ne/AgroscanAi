@@ -236,6 +236,21 @@ def history():
         .all()
     )
 
+    for scan in scans:
+        if isinstance(scan.symptoms, str):
+            try:
+                scan.symptoms = json.loads(scan.symptoms)
+            except (json.JSONDecodeError, TypeError):
+                scan.symptoms = []
+
+        if isinstance(scan.recommendations, str):
+            try:
+                scan.recommendations = json.loads(
+                    scan.recommendations
+                )
+            except (json.JSONDecodeError, TypeError):
+                scan.recommendations = []
+
     return render_template(
         "main/history.html",
         scans=scans
