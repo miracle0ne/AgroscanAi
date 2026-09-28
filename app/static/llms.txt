@@ -1,0 +1,20 @@
+# AgroScan AI
+
+AgroScan AI is an AI-powered crop health detection and decision-support platform for African farmers.
+
+## Website
+https://agroscanai.pxxlspace.cv/
+
+## About
+https://agroscanai.pxxlspace.cv/about
+## YouTube
+https://www.youtube.com/@miracletech53
+
+## Purpose
+AgroScan AI uses AI-powered image analysis to help users identify possible crop diseases, visible symptoms, severity, and recommended next steps.
+
+## Important note
+AI-generated results are preliminary and intended for informational and decision-support purposes. Users should confirm diagnoses with qualified agricultural experts before taking treatment action.
+
+## Contact
+uniquemlungu04@gmail.com
